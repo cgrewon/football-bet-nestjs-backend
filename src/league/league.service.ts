@@ -31,11 +31,11 @@ export class LeagueService {
     return this.findOne(createdOne.id);
   }
 
-  async findAll(skip: number = 0, limit: number = 20) {
+  async findAll(skip: number = 0, limit: number = 100) {
+    console.log({skip, limit})
     const [data, count] = await this.leagueRepository
       .createQueryBuilder('league')
       .leftJoinAndSelect('league.matches', 'matches')
-      .leftJoinAndSelect('matches.pickTeams', 'pickTeams')
       .skip(skip)
       .limit(limit)
       .getManyAndCount();
